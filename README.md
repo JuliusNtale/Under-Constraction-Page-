@@ -24,7 +24,7 @@ A beautiful, responsive "Under Construction" page with countdown timer, progress
    ```javascript
    const launchDate = new Date("2025-04-01").getTime();
 
-   ## Preview
+## Preview
 
  **Large Screens**:
  ![Screenshot 2025-04-06 183806](https://github.com/user-attachments/assets/4bb6f938-b682-4e62-83ca-1390ee46aaf9)
