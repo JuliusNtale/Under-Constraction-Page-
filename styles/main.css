@@ -64,6 +64,7 @@ body {
     position: relative;
     overflow: hidden;
     text-align: center;
+    align-items: center;
     
 }
 
