@@ -29,7 +29,6 @@ A beautiful, responsive "Under Construction" page with countdown timer, progress
  **Large Screens**:
  ![Screenshot 2025-04-06 183806](https://github.com/user-attachments/assets/4bb6f938-b682-4e62-83ca-1390ee46aaf9)
 
- **Small Screens**:
- ![Screenshot 2025-04-06 183842](https://github.com/user-attachments/assets/4f081a4b-20c0-43ba-a84e-fe491ce2f48e)
+
 
    
