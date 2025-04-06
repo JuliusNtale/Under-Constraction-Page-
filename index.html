@@ -4,7 +4,7 @@
 <head>
     <meta charset=UTF-8 />
     <meta name=description content="Website under construction">
-    <meta name=author content="Your Name">
+    <meta name=author content="Julius Ntale">
     <meta name=viewport content="width=device-width,initial-scale=1" />
     <meta http-equiv=X-UA-Compatible content="ie=edge" />
     <link rel=stylesheet href=https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css
@@ -21,34 +21,35 @@
     <div class=container>
         <div class=row>
             <div class="left-wrap col-12 col-md-5">
-                <div class=left>
+                <div class=left id="countdown-container">
                     <p><span class=months>00</span><span class=small> months</span></p>
                     <p><span class=weeks>00</span><span class=small> weeks</span></p>
                     <p><span class=days>00</span><span class=small> days</span></p>
                     <p><span class=hours>00</span><span class=small> hours</span></p>
-                    <p><span class=min>00</span><span class=small> minutes</span></p>
-                    <p><span class=sec>00</span><span class=small> seconds</span></p>
+                    <p><span class=minutes>00</span><span class=small> min</span></p>
+                    <p><span class=seconds>00</span><span class=small> sec</span></p>
                 </div>
             </div>
             <div class="col-12 col-md-7 right">
                 <div class=mainInfo>
-                    <h1>UNDER CONSTRUCTION</h1>
-                    <p class=slogan>We're building something amazing! Our website will be ready soon. Stay tuned for our exciting launch.</p>
+                    <h1 id="main-heading">UNDER CONSTRUCTION</h1>
+                    <p class=slogan id="main-slogan">We're building something amazing! Our website will be ready soon. Stay tuned for our exciting launch.</p>
                     
                     <div class=progress-container>
                         <div class=progress-text>
                             <span>Progress</span>
-                            <span>65%</span>
+                            <span id="progress-percentage">0%</span>
                         </div>
                         <div class=progress-bar>
-                            <div class=progress></div>
+                            <div class=progress id="progress-bar"></div>
                         </div>
                     </div>
                     
-                    <form class=form-subscribe action=#> 
-                        <input type=email class=form placeholder="Your email address" required> 
+                    <form class=form-subscribe id="subscribe-form" action="https://formspree.io/f/xblgpdyy" method="POST"> 
+                        <input type=email class=form name="email" placeholder="Your email address" required> 
                         <button type=submit>Notify Me</button> 
                     </form>
+                    <div class="success-message" id="success-message"></div>
                 </div>
                 <ul class=icon-list>
                     <li class="icon twitter"><a href=https://x.com/am_JuliusNtale title="Twitter"></a></li>
@@ -56,17 +57,30 @@
                     <li class="icon facebook"><a href=# title="Facebook"></a></li>
                     <li class="icon instagram"><a href=https://www.instagram.com/am.jhey/ title="Instagram"></a></li>
                     <li class="icon github"><a href=https://github.com/JuliusNtale/ title="GitHub"></a></li>
-                    
                 </ul>
             </div>
         </div>
     </div>
     <script>
+        // Configuration
+        const launchDate = new Date("2025-06-01").getTime(); // Set your launch date here
+        const startDate = new Date().getTime(); // When the countdown starts
+        const totalDuration = launchDate - startDate; // Total duration until launch
+        
         // Enhanced Countdown Timer with Months and Weeks
         function updateCountdown() {
-            const launchDate = new Date("2026-02-01").getTime(); // Set your launch date here
             const now = new Date().getTime();
             const distance = launchDate - now;
+            
+            // Calculate progress percentage (0-100)
+            const elapsed = now - startDate;
+            let progressPercentage = Math.max(0, Math.min(100, (elapsed / totalDuration * 100)));
+            
+            // If launch date passed, set to 100%
+            if (distance < 0) progressPercentage = 100;
+            
+            document.getElementById('progress-bar').style.width = progressPercentage + '%';
+            document.getElementById('progress-percentage').textContent = Math.round(progressPercentage) + '%';
 
             // Time calculations
             const months = Math.floor(distance / (1000 * 60 * 60 * 24 * 30));
@@ -86,7 +100,12 @@
             
             if (distance < 0) {
                 clearInterval(countdownTimer);
-                document.querySelector('.left').innerHTML = "<p style='font-size:3em;animation:pulse 1s infinite;'>WE'RE LIVE!</p>";
+                const countdownContainer = document.getElementById('countdown-container');
+                countdownContainer.innerHTML = '<div class="launch-message">WE\'RE LIVE!</div>';
+                
+                // Update the right side as well
+                document.getElementById('main-heading').textContent = 'WELCOME!';
+                document.getElementById('main-slogan').textContent = 'Our website is now live. Thank you for your patience!';
             }
         }
 
@@ -95,10 +114,11 @@
         updateCountdown(); // Initial call
 
         // Enhanced Form submission
-        document.querySelector('.form-subscribe').addEventListener('submit', function (e) {
+        document.getElementById('subscribe-form').addEventListener('submit', async function (e) {
             e.preventDefault();
             const email = this.querySelector('.form').value;
             const button = this.querySelector('button');
+            const successMessage = document.getElementById('success-message');
             
             // Validate email
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -109,19 +129,38 @@
             // Button animation
             button.textContent = 'Sending...';
             button.style.backgroundColor = '#27ae60';
+            button.disabled = true;
             
-            // Simulate API call
-            setTimeout(() => {
-                button.textContent = '✓ Subscribed!';
-                alert(`Thank you! We'll notify you at ${email} when we launch.`);
-                this.querySelector('.form').value = '';
+            try {
+                // Send form data
+                const formData = new FormData(this);
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
                 
-                // Reset button after 2 seconds
-                setTimeout(() => {
-                    button.textContent = 'Notify Me';
-                    button.style.backgroundColor = '#2c3e50';
-                }, 2000);
-            }, 1000);
+                if (response.ok) {
+                    // Show success message
+                    successMessage.textContent = 'Thank you! We\'ll notify you when we launch.';
+                    successMessage.style.display = 'block';
+                    this.querySelector('.form').value = '';
+                    
+                    // Reset button after 2 seconds
+                    setTimeout(() => {
+                        button.textContent = 'Subscribed!';
+                    }, 2000);
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                alert('There was a problem with your submission. Please try again.');
+                button.textContent = 'Notify Me';
+                button.style.backgroundColor = '#2c3e50';
+                button.disabled = false;
+            }
         });
 
         // Add hover effect to countdown numbers
