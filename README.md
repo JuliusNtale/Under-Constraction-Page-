@@ -17,6 +17,17 @@ A beautiful, responsive "Under Construction" page with countdown timer, progress
 2. Open `index.html` in a web browser
 3. Deploy to your web server
 
+## 📸 Screenshots
+
+>![Screenshot 2025-04-27 121459](https://github.com/user-attachments/assets/57d12268-0902-422b-8eca-4f9d72cdfd01)
+>![Screenshot 2025-04-27 121514](https://github.com/user-attachments/assets/4083ec52-51cf-401f-ae09-91e1c47645cb)
+
+
+
+
+
+
+
 ## Customization
 
 1. **Set Launch Date**: 
