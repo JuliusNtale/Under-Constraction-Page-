@@ -356,3 +356,53 @@ Version:  6.0 - Modern & Responsive
                 height: 0.2rem;
             }
         }
+
+        /* Brand header and company button */
+        .brand-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .brand-logo {
+            width: 56px;
+            height: 56px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow);
+        }
+        .brand-name {
+            font-weight: 700;
+            color: var(--dark);
+        }
+        .brand-website {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+        .company-link-btn {
+            display: inline-block;
+            padding: 0.6rem 1rem;
+            border-radius: 0.6rem;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .company-link-btn:hover { transform: translateY(-2px); }
+        .site-footer {
+            margin-top: 2rem;
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        .site-footer a { color: var(--secondary); text-decoration: none; font-weight:600 }
+
+        .company-cta { margin-top: 0.5rem; }
